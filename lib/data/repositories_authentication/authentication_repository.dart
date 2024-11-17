@@ -159,23 +159,33 @@ class AuthenticationRepository extends GetxController{
 
   //// Google ///
   // Logout Function//
-  Future<void> logout() async{
-    try{
-      await GoogleSignIn().signOut();
-      await FirebaseAuth.instance.signOut();
-      Get.offAll(()=> LoginScreen());
-    } on FirebaseAuthException catch (e){
-      throw TFirebaseAuthException(e.code).message;
-    }on FirebaseException catch(e){
-      throw TFirebaseException(e.code).message;
-    }on FormatException catch(_){
-      throw TFormatException();
-    }on TPlatformException catch(e){
-      throw TPlatformException(e.code).message;
-    }catch (e){
-      throw "Something Went Worng, Please try again";
-    }
+Future<void> logout() async {
+  try {
+    // Only Firebase sign-out, no Google Sign-In dependency
+    await FirebaseAuth.instance.signOut();
+    
+    // Navigate to the Login screen
+    Get.offAll(() => LoginScreen());
+    
+  } on FirebaseAuthException catch (e) {
+    print("FirebaseAuthException: ${e.message}");
+    throw TFirebaseAuthException(e.code).message;
+  } on FirebaseException catch (e) {
+    print("FirebaseException: ${e.message}");
+    throw TFirebaseException(e.code).message;
+  } on FormatException catch (_) {
+    print("FormatException occurred.");
+    throw TFormatException();
+  } on TPlatformException catch (e) {
+    print("TPlatformException: ${e.message}");
+    throw TPlatformException(e.code).message;
+  } catch (e) {
+    print("Unknown error: $e");
+    throw "Something Went Wrong, Please try again";
   }
+}
+
+
 
   // delete//
   Future<void> deleteAccount() async{

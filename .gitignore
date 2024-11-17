@@ -1,0 +1,87 @@
+# Flutter-specific
+.flutter/
+.dart_tool/
+.packages
+.flutter-plugins
+.flutter-plugins-dependencies
+.flutter-versions
+build/
+ios/Flutter/flutter_export_environment.sh
+*.flutter-plugins-dependencies
+.pub-cache/
+.pub/
+**/GeneratedPluginRegistrant.*
+
+# iOS-specific
+ios/Pods/
+ios/.symlinks/
+ios/Flutter/Flutter.framework
+ios/Flutter/Flutter.podspec
+ios/Runner.xcworkspace
+ios/Runner.xcodeproj/project.xcworkspace/
+ios/Runner.xcodeproj/xcuserdata/
+ios/Runner.xcworkspace/xcuserdata/
+ios/Flutter/App.framework
+ios/Flutter/Flutter.podspec
+ios/Flutter/Generated.xcconfig
+ios/Flutter/ephemeral/
+
+# Android-specific
+.android/
+app/*.iml
+.gradle/
+**/gradle-wrapper.jar
+.gradle/
+local.properties
+**/*.iml
+.idea/
+.idea/libraries
+.idea/modules.xml
+.idea/workspace.xml
+.idea/.name
+.idea/vcs.xml
+*.keystore
+*.jks
+
+# VS Code-specific
+.vscode/
+.history/
+
+# IntelliJ-specific
+*.iml
+*.ipr
+*.iws
+.idea/
+
+# Linux-specific
+linux/flutter/generated_plugin_registrant.cc
+linux/flutter/CMakeLists.txt
+
+# macOS-specific
+macos/Flutter/GeneratedPluginRegistrant.swift
+macos/Flutter/ephemeral/
+
+# Web-specific
+web/.dart_tool/
+web/flutter_service_worker.js
+web/flutter.js
+web/canvaskit/
+
+# Windows-specific
+windows/flutter/generated_plugin_registrant.cc
+
+# Flutter/Dart specific
+*.dart_tool/
+*.flutter_tool/
+.docker/
+.dockerignore
+.podspec
+.test/
+
+# Miscellaneous
+*.log
+*.tmp
+*.swp
+*.lock
+.DS_Store
+*.bak

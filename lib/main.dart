@@ -11,7 +11,18 @@ import 'package:provider/provider.dart';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await GetStorage.init();
-  await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform).then((FirebaseApp value) => Get.put(AuthenticationRepository()));
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  ).then(
+    (FirebaseApp value) {
+      // Initialize and inject the AuthenticationRepository
+      Get.put(AuthenticationRepository());
+
+      // Check for redirection (admin or user) before the app starts
+      AuthenticationRepository.instance.screenRedirect();
+    },
+  );
+
   runApp(
     ChangeNotifierProvider(
       create: (context) => WishlistProvider(),

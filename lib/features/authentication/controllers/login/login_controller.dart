@@ -8,7 +8,7 @@ import 'package:lhstore/utils/helpers/customSnakbar.dart';
 import 'package:lhstore/utils/helpers/full_screen_loader.dart';
 import 'package:lhstore/utils/helpers/network_manager.dart';
 
-class LoginController extends GetxController{
+class LoginController extends GetxController {
   //variables//
   final rememberMe = false.obs;
   final hidePassword = true.obs;
@@ -26,58 +26,59 @@ class LoginController extends GetxController{
   //   super.onInit();
   //  }
   //email and password signIn
-  Future<void> emailAndPasswordSignIn() async{
-    try{
-      LHFullScreenLoader.openLoadingDialog('logging you in', LHImages.darkAppLogo);
+  Future<void> emailAndPasswordSignIn() async {
+    try {
+      LHFullScreenLoader.openLoadingDialog(
+          'Logging you in...', LHImages.darkAppLogo);
 
       final isConnected = await NetworkManager.instance.isConnected();
-      if (!isConnected){
+      if (!isConnected) {
         LHFullScreenLoader.stopLoading();
         return;
       }
-      if (!loginFormKey.currentState!.validate()){
+      if (!loginFormKey.currentState!.validate()) {
         LHFullScreenLoader.stopLoading();
         return;
       }
-      if(rememberMe.value){
+      if (rememberMe.value) {
         localStorage.write('REMEMBER_ME_EMAIL', email.text.trim());
         localStorage.write('REMEMBER_ME_PASSWORD', password.text.trim());
       }
-      final userCredentials = await AuthenticationRepository.instance.loginWithEmailAndPassword(email.text.trim(), password.text.trim());
+
+      final userCredentials = await AuthenticationRepository.instance
+          .loginWithEmailAndPassword(email.text.trim(), password.text.trim());
       LHFullScreenLoader.stopLoading();
 
+      // Redirect to the appropriate screen based on admin status
       AuthenticationRepository.instance.screenRedirect();
-    } catch (e){
+    } catch (e) {
       LHFullScreenLoader.stopLoading();
       LHLoader.ErrorSnackBar(title: 'OH Snap', message: e.toString());
     }
   }
 
+  Future<void> googleSignIn() async {
+    try {
+      LHFullScreenLoader.openLoadingDialog(
+          'Logging you in...', 'assets/json/loading.json');
 
-Future<void> googleSignIn() async {
-  try{
-    LHFullScreenLoader.openLoadingDialog('Logging you in...', 'assets/json/loading.json');
+      final isConnected = await NetworkManager.instance.isConnected();
+      if (!isConnected) {
+        LHFullScreenLoader.stopLoading();
+        return;
+      }
 
-    final isConnected = await NetworkManager.instance.isConnected();
-    if(!isConnected) {
+      final userCredentials =
+          await AuthenticationRepository.instance.signInwithGoogle();
+
+      await userController.saveUserRecord(userCredentials);
+
       LHFullScreenLoader.stopLoading();
-      return;
+
+      AuthenticationRepository.instance.screenRedirect();
+    } catch (e) {
+      LHFullScreenLoader.stopLoading();
+      LHLoader.ErrorSnackBar(title: 'Oh Snap', message: e.toString());
     }
-
-    final userCredentials = await AuthenticationRepository.instance.signInwithGoogle();
-
-
-    await userController.saveUserRecord(userCredentials);
-
-
-    LHFullScreenLoader.stopLoading();
-
-    AuthenticationRepository.instance.screenRedirect();
-
-  }catch(e){
-    LHFullScreenLoader.stopLoading();
-    LHLoader.ErrorSnackBar(title: 'Oh Snap', message: e.toString());
   }
-}
-
 }

@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import '../../constants.dart';
 
-
 class CategoryCard extends StatelessWidget {
   final IconData icon;
   final String title;
@@ -53,7 +52,9 @@ class CategoryCard extends StatelessWidget {
             ),
             Spacer(),
             Text(
-              description,
+              description.length > 50
+                  ? "${description.substring(0, 47)}..." // Truncate description
+                  : description,
               style: TextStyle(
                 color: Colors.black54,
                 fontSize: 14,

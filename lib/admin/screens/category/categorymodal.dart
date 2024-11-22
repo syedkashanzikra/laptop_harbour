@@ -2,7 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_iconpicker/Models/configuration.dart';
 import 'package:flutter_iconpicker/flutter_iconpicker.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
-import 'package:firebase_database/firebase_database.dart'; // Import Firebase Realtime Database
+import 'package:firebase_database/firebase_database.dart';
+import 'package:lhstore/utils/helpers/customSnakbar.dart'; // Import Firebase Realtime Database
 
 class AddCategoryDialog extends StatefulWidget {
   @override
@@ -31,55 +32,51 @@ class _AddCategoryDialogState extends State<AddCategoryDialog> {
       });
     }
   }
-
-  void _addCategory() async {
-    // Ensure required fields are filled
-    if (nameController.text.isEmpty ||
-        descriptionController.text.isEmpty ||
-        selectedIcon == null) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(
-          content: Text("Please fill all fields and select an icon"),
-          backgroundColor: Colors.red,
-        ),
-      );
-      return;
-    }
-
-    // Add category to Firebase Realtime Database
-    try {
-      await dbRef.push().set({
-        "name": nameController.text,
-        "description": descriptionController.text,
-        "icon": selectedIcon!.codePoint, // Store icon's codePoint
-      });
-
-      // Show success snackbar
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(
-          content: Text("Category added successfully!"),
-          backgroundColor: Colors.green,
-        ),
-      );
-
-      // Clear fields and close dialog
-      nameController.clear();
-      descriptionController.clear();
-      setState(() {
-        selectedIcon = null;
-      });
-
-      Navigator.pop(context);
-    } catch (error) {
-      // Handle errors
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(
-          content: Text("Failed to add category: $error"),
-          backgroundColor: Colors.red,
-        ),
-      );
-    }
+void _addCategory() async {
+  // Ensure required fields are filled
+  if (nameController.text.isEmpty ||
+      descriptionController.text.isEmpty ||
+      selectedIcon == null) {
+    LHLoader.successSnackBar(
+      title: "Error",
+      message: "Please fill all fields and select an icon",
+      duration: 3,
+    );
+    return;
   }
+
+  try {
+    // Add category to Firebase Realtime Database
+    await dbRef.push().set({
+      "name": nameController.text,
+      "description": descriptionController.text,
+      "icon": selectedIcon!.codePoint, // Store icon's codePoint
+    });
+
+    // Show success snackbar
+    LHLoader.successSnackBar(
+      title: "Success",
+      message: "Category added successfully!",
+      duration: 3,
+    );
+
+    // Clear fields and close dialog
+    nameController.clear();
+    descriptionController.clear();
+    setState(() {
+      selectedIcon = null;
+    });
+
+    Navigator.pop(context);
+  } catch (error) {
+    // Show error snackbar
+    LHLoader.successSnackBar(
+      title: "Error",
+      message: "Failed to add category: $error",
+      duration: 3,
+    );
+  }
+}
 
   @override
   Widget build(BuildContext context) {

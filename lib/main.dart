@@ -8,6 +8,8 @@ import 'package:lhstore/features/shop/screens/wishlist/wishlist_provider.dart';
 import 'package:lhstore/firebase_options.dart';
 import 'package:provider/provider.dart';
 
+import 'package:lhstore/admin/controllers/menu_app_controller.dart'; // Import MenuAppController
+
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await GetStorage.init();
@@ -24,8 +26,11 @@ void main() async {
   );
 
   runApp(
-    ChangeNotifierProvider(
-      create: (context) => WishlistProvider(),
+    MultiProvider(
+      providers: [
+        ChangeNotifierProvider(create: (context) => WishlistProvider()),
+        ChangeNotifierProvider(create: (context) => MenuAppController()), // Add MenuAppController
+      ],
       child: const MyApp(),
     ),
   );

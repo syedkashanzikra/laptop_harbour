@@ -1,26 +1,44 @@
 import 'package:flutter/material.dart';
-import 'package:lhstore/admin/controllers/menu_app_controller.dart';
 import 'package:lhstore/admin/screens/dashboard/dashboard_screen.dart';
-import 'package:provider/provider.dart';
 import 'components/side_menu.dart';
 
-class MainScreen extends StatelessWidget {
+class MainScreen extends StatefulWidget {
+  @override
+  _MainScreenState createState() => _MainScreenState();
+}
+
+class _MainScreenState extends State<MainScreen> {
+  final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      key: context.read<MenuAppController>().scaffoldKey, // Scaffold key for controlling the drawer
-      drawer: SideMenu(), // SideMenu always acts as a drawer
+      key: _scaffoldKey,
+      drawer: SideMenu(),
       body: SafeArea(
-        child: DashboardScreen(), // Main content area
-      ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          final scaffoldKey = context.read<MenuAppController>().scaffoldKey;
-          if (!scaffoldKey.currentState!.isDrawerOpen) {
-            scaffoldKey.currentState!.openDrawer(); // Open drawer manually
-          }
-        },
-        child: Icon(Icons.menu), // Menu icon for opening the drawer
+        child: Column(
+          children: [
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+              child: Row(
+                children: [
+                  if (MediaQuery.of(context).size.width < 1100) // Show menu icon on smaller screens
+                    IconButton(
+                      icon: Icon(Icons.menu),
+                      onPressed: () {
+                        _scaffoldKey.currentState?.openDrawer();
+                      },
+                    ),
+                  Text(
+                    "Dashboard",
+                    style: Theme.of(context).textTheme.headlineSmall,
+                  ),
+                ],
+              ),
+            ),
+            Expanded(child: DashboardScreen()),
+          ],
+        ),
       ),
     );
   }

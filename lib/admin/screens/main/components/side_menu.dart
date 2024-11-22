@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:lhstore/admin/screens/category/viewcategory.dart';
 
 class SideMenu extends StatelessWidget {
   const SideMenu({
@@ -17,42 +18,80 @@ class SideMenu extends StatelessWidget {
           DrawerListTile(
             title: "Dashboard",
             svgSrc: "assets/icons/menu_dashboard.svg",
-            press: () {},
+            press: () {
+              if (ModalRoute.of(context)?.settings.name != '/dashboard') {
+                Navigator.pushNamed(context, '/dashboard');
+              }
+            },
           ),
           DrawerListTile(
             title: "Transaction",
             svgSrc: "assets/icons/menu_tran.svg",
-            press: () {},
+            press: () {
+              if (ModalRoute.of(context)?.settings.name != '/transaction') {
+                Navigator.pushNamed(context, '/transaction');
+              }
+            },
           ),
           DrawerListTile(
-            title: "Task",
+            title: "Category",
             svgSrc: "assets/icons/menu_task.svg",
-            press: () {},
+            press: () {
+              if (ModalRoute.of(context)?.settings.name != '/viewCategory') {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => ViewCategoryScreen(),
+                    settings: RouteSettings(name: '/viewCategory'),
+                  ),
+                );
+              }
+            },
           ),
           DrawerListTile(
             title: "Documents",
             svgSrc: "assets/icons/menu_doc.svg",
-            press: () {},
+            press: () {
+              if (ModalRoute.of(context)?.settings.name != '/documents') {
+                Navigator.pushNamed(context, '/documents');
+              }
+            },
           ),
           DrawerListTile(
             title: "Store",
             svgSrc: "assets/icons/menu_store.svg",
-            press: () {},
+            press: () {
+              if (ModalRoute.of(context)?.settings.name != '/store') {
+                Navigator.pushNamed(context, '/store');
+              }
+            },
           ),
           DrawerListTile(
             title: "Notification",
             svgSrc: "assets/icons/menu_notification.svg",
-            press: () {},
+            press: () {
+              if (ModalRoute.of(context)?.settings.name != '/notifications') {
+                Navigator.pushNamed(context, '/notifications');
+              }
+            },
           ),
           DrawerListTile(
             title: "Profile",
             svgSrc: "assets/icons/menu_profile.svg",
-            press: () {},
+            press: () {
+              if (ModalRoute.of(context)?.settings.name != '/profile') {
+                Navigator.pushNamed(context, '/profile');
+              }
+            },
           ),
           DrawerListTile(
             title: "Settings",
             svgSrc: "assets/icons/menu_setting.svg",
-            press: () {},
+            press: () {
+              if (ModalRoute.of(context)?.settings.name != '/settings') {
+                Navigator.pushNamed(context, '/settings');
+              }
+            },
           ),
         ],
       ),
@@ -63,7 +102,6 @@ class SideMenu extends StatelessWidget {
 class DrawerListTile extends StatelessWidget {
   const DrawerListTile({
     Key? key,
-    // For selecting those three line once press "Command+D"
     required this.title,
     required this.svgSrc,
     required this.press,

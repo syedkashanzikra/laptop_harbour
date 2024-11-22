@@ -13,15 +13,14 @@ class ViewCategoryScreen extends StatefulWidget {
 
 class _ViewCategoryScreenState extends State<ViewCategoryScreen> {
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
-  final DatabaseReference dbRef =
-      FirebaseDatabase.instance.ref("Categories"); // Firebase reference
+  final DatabaseReference dbRef = FirebaseDatabase.instance.ref("Categories"); // Firebase reference
 
   List<Map<String, dynamic>> categories = []; // Stores fetched categories
 
   @override
   void initState() {
     super.initState();
-    _fetchCategories(); // Fetch categories on initialization
+    _fetchCategories();
   }
 
   void _fetchCategories() {
@@ -62,7 +61,6 @@ class _ViewCategoryScreenState extends State<ViewCategoryScreen> {
       body: SafeArea(
         child: Column(
           children: [
-            // Add Button Section
             Padding(
               padding: const EdgeInsets.symmetric(
                 horizontal: defaultPadding,
@@ -71,6 +69,13 @@ class _ViewCategoryScreenState extends State<ViewCategoryScreen> {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
+                  if (!Responsive.isDesktop(context)) // Show menu icon on small screens
+                    IconButton(
+                      icon: Icon(Icons.menu),
+                      onPressed: () {
+                        _scaffoldKey.currentState?.openDrawer();
+                      },
+                    ),
                   Text(
                     "Category Page",
                     style: Theme.of(context).textTheme.headlineSmall?.copyWith(
@@ -109,6 +114,7 @@ class _ViewCategoryScreenState extends State<ViewCategoryScreen> {
                 itemBuilder: (context, index) {
                   final category = categories[index];
                   return CategoryCard(
+                    id: category["id"], // Pass Firebase key
                     icon: IconData(
                       category["icon"],
                       fontFamily: 'MaterialIcons',

@@ -9,99 +9,130 @@ class ViewCategoryScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      key: _scaffoldKey, // Local ScaffoldKey for this screen
-      drawer: SideMenu(), // Independent Drawer
+      key: _scaffoldKey,
+      drawer: SideMenu(),
       body: SafeArea(
-        child: SingleChildScrollView(
-          padding: EdgeInsets.all(defaultPadding),
-          child: Column(
-            children: [
-              // Add a button to open the drawer
-              Row(
+        child: Column(
+          children: [
+            // Enhanced Add Button Section
+            Padding(
+              padding: const EdgeInsets.symmetric(
+                horizontal: defaultPadding,
+                vertical: defaultPadding / 2,
+              ),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  IconButton(
-                    icon: Icon(Icons.menu),
-                    onPressed: () {
-                      // Open the drawer locally
-                      if (!_scaffoldKey.currentState!.isDrawerOpen) {
-                        _scaffoldKey.currentState!.openDrawer();
-                      }
-                    },
-                  ),
                   Text(
-                    "View Categories",
-                    style: Theme.of(context).textTheme.titleLarge,
+                    "Category Page",
+                    style: Theme.of(context).textTheme.headlineSmall?.copyWith(
+                          fontWeight: FontWeight.bold,
+                        ),
+                  ),
+                  ElevatedButton.icon(
+                    onPressed: () {
+                      print("Add Category button clicked");
+                    },
+                    icon: Icon(Icons.add),
+                    label: Text("Add Category"),
+                    style: ElevatedButton.styleFrom(
+                      padding: EdgeInsets.symmetric(
+                        vertical: 15,
+                        horizontal: 20,
+                      ),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(10),
+                      ),
+                    ),
                   ),
                 ],
               ),
-              SizedBox(height: defaultPadding),
-              Row(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Expanded(
-                    flex: 5,
-                    child: Column(
-                      children: [
-                        CategoryCard(),
-                        SizedBox(height: defaultPadding),
-                        ElevatedButton.icon(
-                          onPressed: () {
-                            print("Add Category button clicked");
-                          },
-                          icon: Icon(Icons.add),
-                          label: Text("Add Category"),
-                        ),
-                      ],
-                    ),
-                  ),
-                  if (!Responsive.isMobile(context)) ...[
-                    SizedBox(width: defaultPadding),
-                    Expanded(
-                      flex: 2,
-                      child: Text(
-                        "Details Panel (Optional)",
-                        style: TextStyle(color: Colors.grey),
-                      ),
-                    ),
-                  ],
-                ],
-              )
-            ],
-          ),
+            ),
+            Expanded(
+              child: GridView.builder(
+                padding: EdgeInsets.all(defaultPadding),
+                gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                  crossAxisCount: Responsive.isMobile(context) ? 1 : 3,
+                  crossAxisSpacing: defaultPadding,
+                  mainAxisSpacing: defaultPadding,
+                  childAspectRatio: 3 / 2,
+                ),
+                itemCount: 6, // Replace with your dynamic list count
+                itemBuilder: (context, index) {
+                  return CategoryCard(
+                    icon: Icons.category, // Example icon
+                    title: "Category $index",
+                    description: "This is a description for category $index.",
+                    color: Colors.blue.shade100, // Example color
+                  );
+                },
+              ),
+            ),
+          ],
         ),
       ),
     );
   }
 }
 
-
 class CategoryCard extends StatelessWidget {
+  final IconData icon;
+  final String title;
+  final String description;
+  final Color color;
+
+  const CategoryCard({
+    Key? key,
+    required this.icon,
+    required this.title,
+    required this.description,
+    required this.color,
+  }) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     return Card(
-      elevation: 2,
+      elevation: 3,
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(12),
       ),
+      color: color,
       child: Padding(
         padding: const EdgeInsets.all(defaultPadding),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text(
-              "Category Name",
-              style: TextStyle(
-                fontWeight: FontWeight.bold,
-                fontSize: 18,
-              ),
+            Row(
+              children: [
+                CircleAvatar(
+                  backgroundColor: Colors.white,
+                  child: Icon(
+                    icon,
+                    color: Colors.blue,
+                  ),
+                ),
+                SizedBox(width: defaultPadding),
+                Expanded(
+                  child: Text(
+                    title,
+                    style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      fontSize: 16,
+                      color: Colors.black87,
+                    ),
+                  ),
+                ),
+              ],
             ),
-            SizedBox(height: 8),
+            Spacer(),
             Text(
-              "Description of the category or additional details can go here.",
+              description,
               style: TextStyle(
-                color: Colors.grey,
+                color: Colors.black54,
                 fontSize: 14,
               ),
+              maxLines: 2,
+              overflow: TextOverflow.ellipsis,
             ),
           ],
         ),

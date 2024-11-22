@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:lhstore/admin/responsive.dart';
+import 'package:lhstore/admin/screens/category/categorycard.dart';
+import 'package:lhstore/admin/screens/category/categorymodal.dart';
 import '../../constants.dart';
 import 'package:lhstore/admin/screens/main/components/side_menu.dart';
 
@@ -31,7 +33,7 @@ class ViewCategoryScreen extends StatelessWidget {
                   ),
                   ElevatedButton.icon(
                     onPressed: () {
-                      print("Add Category button clicked");
+                      _showAddCategoryDialog(context); // Opens modal dialog
                     },
                     icon: Icon(Icons.add),
                     label: Text("Add Category"),
@@ -62,7 +64,7 @@ class ViewCategoryScreen extends StatelessWidget {
                   return CategoryCard(
                     icon: Icons.category, // Example icon
                     title: "Category $index",
-                    description: "This is a description for category $index.",
+                    description: "Description for category $index.",
                     color: Colors.blue.shade100, // Example color
                   );
                 },
@@ -73,70 +75,14 @@ class ViewCategoryScreen extends StatelessWidget {
       ),
     );
   }
-}
 
-class CategoryCard extends StatelessWidget {
-  final IconData icon;
-  final String title;
-  final String description;
-  final Color color;
-
-  const CategoryCard({
-    Key? key,
-    required this.icon,
-    required this.title,
-    required this.description,
-    required this.color,
-  }) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return Card(
-      elevation: 3,
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(12),
-      ),
-      color: color,
-      child: Padding(
-        padding: const EdgeInsets.all(defaultPadding),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Row(
-              children: [
-                CircleAvatar(
-                  backgroundColor: Colors.white,
-                  child: Icon(
-                    icon,
-                    color: Colors.blue,
-                  ),
-                ),
-                SizedBox(width: defaultPadding),
-                Expanded(
-                  child: Text(
-                    title,
-                    style: TextStyle(
-                      fontWeight: FontWeight.bold,
-                      fontSize: 16,
-                      color: Colors.black87,
-                    ),
-                  ),
-                ),
-              ],
-            ),
-            Spacer(),
-            Text(
-              description,
-              style: TextStyle(
-                color: Colors.black54,
-                fontSize: 14,
-              ),
-              maxLines: 2,
-              overflow: TextOverflow.ellipsis,
-            ),
-          ],
-        ),
-      ),
+  // Modal Dialog for Adding a Category
+  void _showAddCategoryDialog(BuildContext context) {
+    showDialog(
+      context: context,
+      builder: (context) {
+        return AddCategoryDialog();
+      },
     );
   }
 }

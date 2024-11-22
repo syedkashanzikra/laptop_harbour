@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:lhstore/admin/adminscreen.dart';
 import 'package:lhstore/admin/screens/category/viewcategory.dart';
 
 class SideMenu extends StatelessWidget {
@@ -18,71 +19,51 @@ class SideMenu extends StatelessWidget {
           DrawerListTile(
             title: "Dashboard",
             svgSrc: "assets/icons/menu_dashboard.svg",
-            press: () {
-              if (ModalRoute.of(context)?.settings.name != '/dashboard') {
-                Navigator.pushNamed(context, '/dashboard');
-              }
+             press: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => AdminScreen(),
+                ),
+              );
             },
           ),
           DrawerListTile(
             title: "Transaction",
             svgSrc: "assets/icons/menu_tran.svg",
-            press: () {
-              if (ModalRoute.of(context)?.settings.name != '/transaction') {
-                Navigator.pushNamed(context, '/transaction');
-              }
-            },
+            press: () {},
           ),
           DrawerListTile(
             title: "Category",
             svgSrc: "assets/icons/menu_task.svg",
             press: () {
-              if (ModalRoute.of(context)?.settings.name != '/viewCategory') {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => ViewCategoryScreen(),
-                    settings: RouteSettings(name: '/viewCategory'),
-                  ),
-                );
-              }
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => ViewCategoryScreen(),
+                ),
+              );
             },
           ),
           DrawerListTile(
             title: "Documents",
             svgSrc: "assets/icons/menu_doc.svg",
-            press: () {
-              if (ModalRoute.of(context)?.settings.name != '/documents') {
-                Navigator.pushNamed(context, '/documents');
-              }
-            },
+            press: () {},
           ),
           DrawerListTile(
             title: "Store",
             svgSrc: "assets/icons/menu_store.svg",
-            press: () {
-              if (ModalRoute.of(context)?.settings.name != '/store') {
-                Navigator.pushNamed(context, '/store');
-              }
-            },
+            press: () {},
           ),
           DrawerListTile(
             title: "Notification",
             svgSrc: "assets/icons/menu_notification.svg",
-            press: () {
-              if (ModalRoute.of(context)?.settings.name != '/notifications') {
-                Navigator.pushNamed(context, '/notifications');
-              }
-            },
+            press: () {},
           ),
           DrawerListTile(
             title: "Profile",
             svgSrc: "assets/icons/menu_profile.svg",
-            press: () {
-              if (ModalRoute.of(context)?.settings.name != '/profile') {
-                Navigator.pushNamed(context, '/profile');
-              }
-            },
+            press: () {},
           ),
           DrawerListTile(
             title: "Settings",

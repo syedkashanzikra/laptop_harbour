@@ -1,73 +1,79 @@
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 import 'package:lhstore/admin/responsive.dart';
-import 'package:lhstore/admin/screens/dashboard/components/header.dart';
 import '../../constants.dart';
-import '../../controllers/menu_app_controller.dart';
+import 'package:lhstore/admin/screens/main/components/side_menu.dart';
 
 class ViewCategoryScreen extends StatelessWidget {
+  final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
+
   @override
   Widget build(BuildContext context) {
-    return ChangeNotifierProvider(
-      create: (_) => MenuAppController(),
-      child: Scaffold(
-        body: SafeArea(
-          child: SingleChildScrollView(
-            primary: false,
-            padding: EdgeInsets.all(defaultPadding),
-            child: Column(
-              children: [
-                Header(),
-                SizedBox(height: defaultPadding),
-                Row(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
+    return Scaffold(
+      key: _scaffoldKey, // Local ScaffoldKey for this screen
+      drawer: SideMenu(), // Independent Drawer
+      body: SafeArea(
+        child: SingleChildScrollView(
+          padding: EdgeInsets.all(defaultPadding),
+          child: Column(
+            children: [
+              // Add a button to open the drawer
+              Row(
+                children: [
+                  IconButton(
+                    icon: Icon(Icons.menu),
+                    onPressed: () {
+                      // Open the drawer locally
+                      if (!_scaffoldKey.currentState!.isDrawerOpen) {
+                        _scaffoldKey.currentState!.openDrawer();
+                      }
+                    },
+                  ),
+                  Text(
+                    "View Categories",
+                    style: Theme.of(context).textTheme.titleLarge,
+                  ),
+                ],
+              ),
+              SizedBox(height: defaultPadding),
+              Row(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Expanded(
+                    flex: 5,
+                    child: Column(
+                      children: [
+                        CategoryCard(),
+                        SizedBox(height: defaultPadding),
+                        ElevatedButton.icon(
+                          onPressed: () {
+                            print("Add Category button clicked");
+                          },
+                          icon: Icon(Icons.add),
+                          label: Text("Add Category"),
+                        ),
+                      ],
+                    ),
+                  ),
+                  if (!Responsive.isMobile(context)) ...[
+                    SizedBox(width: defaultPadding),
                     Expanded(
-                      flex: 5,
-                      child: Column(
-                        children: [
-                          // Add the category card layout
-                          CategoryCard(),
-                          SizedBox(height: defaultPadding),
-                          // Add the "Add Category" button
-                          ElevatedButton.icon(
-                            onPressed: () {
-                              // Add the functionality for adding categories
-                              print("Add Category button clicked");
-                            },
-                            icon: Icon(Icons.add),
-                            label: Text("Add Category"),
-                            style: ElevatedButton.styleFrom(
-                              padding: EdgeInsets.symmetric(
-                                  vertical: 15, horizontal: 20),
-                            ),
-                          ),
-                        ],
+                      flex: 2,
+                      child: Text(
+                        "Details Panel (Optional)",
+                        style: TextStyle(color: Colors.grey),
                       ),
                     ),
-                    if (!Responsive.isMobile(context))
-                      SizedBox(width: defaultPadding),
-                    if (!Responsive.isMobile(context))
-                      Expanded(
-                        flex: 2,
-                        child: Container(
-                          // Optionally add additional content for larger screens
-                          child: Text(
-                            "Details Panel (Optional)",
-                            style: TextStyle(color: Colors.grey),
-                          ),
-                        ),
-                      ),
                   ],
-                )
-              ],
-            ),
+                ],
+              )
+            ],
           ),
         ),
       ),
     );
   }
 }
+
 
 class CategoryCard extends StatelessWidget {
   @override

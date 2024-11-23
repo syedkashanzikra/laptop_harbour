@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_database/firebase_database.dart';
+import 'package:lhstore/admin/screens/category/edit_categorymodal.dart';
 import 'package:lhstore/utils/helpers/customSnakbar.dart';
 import '../../constants.dart';
 
@@ -79,12 +80,15 @@ class CategoryCard extends StatelessWidget {
                 PopupMenuButton<String>(
                   onSelected: (value) {
                     if (value == 'Edit') {
-                      // Handle Edit functionality here
-                      LHLoader.successSnackBar(
-                        title: "Edit",
-                        message: "Edit functionality is not implemented yet.",
-                        duration: 3,
-                      );
+                      showDialog(
+    context: context,
+    builder: (_) => EditCategoryDialog(
+      id: id,
+      name: title,
+      description: description,
+      iconCodePoint: icon.codePoint,
+    ),
+  );
                     } else if (value == 'Delete') {
                       _deleteCategory(context); // Call delete function
                     }

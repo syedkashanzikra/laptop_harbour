@@ -44,6 +44,7 @@ dependencies:
   flutter_iconpicker: ^4.0.1
   flutter_form_builder: ^9.5.0
   firebase_database: ^11.1.6
+  path_provider: ^2.1.5
 dev_dependencies:
   flutter_test:
     sdk: flutter

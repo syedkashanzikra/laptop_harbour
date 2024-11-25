@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:lhstore/admin/screens/admin_product/admin_product_page.dart';
 import 'package:lhstore/admin/screens/category/viewcategory.dart';
 import 'package:lhstore/admin/screens/main/main_screen.dart';
 
@@ -16,21 +17,20 @@ class SideMenu extends StatelessWidget {
           DrawerHeader(
             child: Image.asset("assets/images/logo.png"),
           ),
-       DrawerListTile(
-  title: "Dashboard",
-  svgSrc: "assets/icons/menu_dashboard.svg",
-  press: () {
-    // Close the drawer and navigate back to MainScreen
-    Navigator.pop(context); // Close the drawer
-    Navigator.pushReplacement(
-      context,
-      MaterialPageRoute(
-        builder: (context) => MainScreen(),
-      ),
-    );
-  },
-),
-
+          DrawerListTile(
+            title: "Dashboard",
+            svgSrc: "assets/icons/menu_dashboard.svg",
+            press: () {
+              // Close the drawer and navigate back to MainScreen
+              Navigator.pop(context); // Close the drawer
+              Navigator.pushReplacement(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => MainScreen(),
+                ),
+              );
+            },
+          ),
           DrawerListTile(
             title: "Transaction",
             svgSrc: "assets/icons/menu_tran.svg",
@@ -38,12 +38,24 @@ class SideMenu extends StatelessWidget {
           ),
           DrawerListTile(
             title: "Category",
-            svgSrc: "assets/icons/menu_task.svg",
+            svgSrc: "assets/icons/category-svgrepo-com.svg",
             press: () {
               Navigator.push(
                 context,
                 MaterialPageRoute(
                   builder: (context) => ViewCategoryScreen(),
+                ),
+              );
+            },
+          ),
+            DrawerListTile(
+            title: "Products",
+            svgSrc: "assets/icons/category-svgrepo-com.svg",
+            press: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => ProductAdminView(),
                 ),
               );
             },

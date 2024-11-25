@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:lhstore/utils/helpers/customSnakbar.dart';
+import 'package:lhstore/admin/screens/admin_product/admin_editproduct.dart'; // Import EditProductAdmin screen
 
 class ProductAdminCard extends StatelessWidget {
   final String id;
@@ -19,6 +20,24 @@ class ProductAdminCard extends StatelessWidget {
     required this.price,
     required this.onDelete,
   }) : super(key: key);
+
+  // Navigate to Edit Product Screen
+  void _editProduct(BuildContext context) {
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => EditProductAdmin(
+          productId: id,
+          initialData: {
+            "name": title,
+            "description": description,
+            "imageUrl": imageUrl,
+            "price": price,
+          },
+        ),
+      ),
+    );
+  }
 
   // Method to delete product from Firebase
   Future<void> _deleteProduct(BuildContext context) async {
@@ -128,9 +147,21 @@ class ProductAdminCard extends StatelessWidget {
               onSelected: (value) {
                 if (value == "delete") {
                   _showDeleteConfirmationDialog(context); // Show confirmation dialog
+                } else if (value == "edit") {
+                  _editProduct(context); // Navigate to edit screen
                 }
               },
               itemBuilder: (BuildContext context) => [
+                PopupMenuItem(
+                  value: "edit",
+                  child: Row(
+                    children: [
+                      Icon(Icons.edit, color: Colors.blue),
+                      SizedBox(width: 8),
+                      Text("Edit"),
+                    ],
+                  ),
+                ),
                 PopupMenuItem(
                   value: "delete",
                   child: Row(

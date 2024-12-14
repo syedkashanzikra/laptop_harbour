@@ -3,6 +3,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:lhstore/admin/screens/admin_product/admin_product_page.dart';
 import 'package:lhstore/admin/screens/category/viewcategory.dart';
 import 'package:lhstore/admin/screens/main/main_screen.dart';
+import 'package:lhstore/data/repositories_authentication/authentication_repository.dart';
 
 class SideMenu extends StatelessWidget {
   const SideMenu({
@@ -74,6 +75,13 @@ class SideMenu extends StatelessWidget {
             title: "Notification",
             svgSrc: "assets/icons/menu_notification.svg",
             press: () {},
+          ),
+              DrawerListTile(
+            title: "Logout",
+            svgSrc: "assets/icons/menu_profile.svg",
+            press: () {
+         AuthenticationRepository.instance.logout();
+            },
           ),
           DrawerListTile(
             title: "Profile",

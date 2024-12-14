@@ -1,10 +1,8 @@
-
-
 import 'package:flutter/material.dart';
-import 'package:lhstore/admin/models/my_files.dart';
 import 'package:lhstore/admin/responsive.dart';
 import '../../../constants.dart';
 import 'file_info_card.dart';
+import 'package:lhstore/admin/models/my_files.dart'; // Import the fetchDemoMyFilesStream function
 
 class MyFiles extends StatelessWidget {
   const MyFiles({
@@ -65,17 +63,32 @@ class FileInfoCardGridView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return GridView.builder(
-      physics: NeverScrollableScrollPhysics(),
-      shrinkWrap: true,
-      itemCount: demoMyFiles.length,
-      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-        crossAxisCount: crossAxisCount,
-        crossAxisSpacing: defaultPadding,
-        mainAxisSpacing: defaultPadding,
-        childAspectRatio: childAspectRatio,
-      ),
-      itemBuilder: (context, index) => FileInfoCard(info: demoMyFiles[index]),
+    // Use StreamBuilder to fetch real-time data
+    return StreamBuilder<List<CloudStorageInfo>>(
+      stream: fetchDemoMyFilesStream(), // Real-time Firestore stream
+      builder: (context, snapshot) {
+        if (snapshot.connectionState == ConnectionState.waiting) {
+          return Center(child: CircularProgressIndicator()); // Show loading spinner
+        } else if (snapshot.hasError) {
+          return Center(child: Text("Error: ${snapshot.error}")); // Show error message
+        } else if (snapshot.hasData) {
+          final files = snapshot.data ?? [];
+          return GridView.builder(
+            physics: NeverScrollableScrollPhysics(),
+            shrinkWrap: true,
+            itemCount: files.length, // Dynamically fetched list
+            gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+              crossAxisCount: crossAxisCount,
+              crossAxisSpacing: defaultPadding,
+              mainAxisSpacing: defaultPadding,
+              childAspectRatio: childAspectRatio,
+            ),
+            itemBuilder: (context, index) => FileInfoCard(info: files[index]),
+          );
+        } else {
+          return Center(child: Text("No data available")); // Handle empty state
+        }
+      },
     );
   }
 }

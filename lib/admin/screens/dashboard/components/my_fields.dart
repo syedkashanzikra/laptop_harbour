@@ -51,7 +51,6 @@ class MyFiles extends StatelessWidget {
     );
   }
 }
-
 class FileInfoCardGridView extends StatelessWidget {
   const FileInfoCardGridView({
     Key? key,
@@ -64,17 +63,32 @@ class FileInfoCardGridView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return GridView.builder(
-      physics: NeverScrollableScrollPhysics(),
-      shrinkWrap: true,
-      itemCount: demoMyFiles.length,
-      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-        crossAxisCount: crossAxisCount,
-        crossAxisSpacing: defaultPadding,
-        mainAxisSpacing: defaultPadding,
-        childAspectRatio: childAspectRatio,
-      ),
-      itemBuilder: (context, index) => FileInfoCard(info: demoMyFiles[index]),
+    // Use StreamBuilder to listen to real-time data updates
+    return StreamBuilder<List<CloudStorageInfo>>(
+      stream: fetchDemoMyFilesStream(), // Fetch the list dynamically in real-time
+      builder: (context, snapshot) {
+        if (snapshot.connectionState == ConnectionState.waiting) {
+          return Center(child: CircularProgressIndicator()); // Show loading spinner
+        } else if (snapshot.hasError) {
+          return Center(child: Text("Error: ${snapshot.error}")); // Show error message
+        } else if (snapshot.hasData) {
+          final files = snapshot.data ?? [];
+          return GridView.builder(
+            physics: NeverScrollableScrollPhysics(),
+            shrinkWrap: true,
+            itemCount: files.length, // Dynamically get the number of items
+            gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+              crossAxisCount: crossAxisCount,
+              crossAxisSpacing: defaultPadding,
+              mainAxisSpacing: defaultPadding,
+              childAspectRatio: childAspectRatio,
+            ),
+            itemBuilder: (context, index) => FileInfoCard(info: files[index]),
+          );
+        } else {
+          return Center(child: Text("No data available")); // Handle empty state
+        }
+      },
     );
   }
 }

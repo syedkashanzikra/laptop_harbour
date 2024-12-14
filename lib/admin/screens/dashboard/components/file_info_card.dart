@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:lhstore/admin/models/my_files.dart';
-
 import '../../../constants.dart';
 
 class FileInfoCard extends StatelessWidget {
@@ -32,46 +31,46 @@ class FileInfoCard extends StatelessWidget {
                 height: 40,
                 width: 40,
                 decoration: BoxDecoration(
-                  color: info.color!.withOpacity(0.1),
+                  color: info.color?.withOpacity(0.1) ?? Colors.grey.withOpacity(0.1),
                   borderRadius: const BorderRadius.all(Radius.circular(10)),
                 ),
                 child: SvgPicture.asset(
-                  info.svgSrc!,
+                  info.svgSrc ?? "assets/icons/placeholder.svg",
                   colorFilter: ColorFilter.mode(
                       info.color ?? Colors.black, BlendMode.srcIn),
                 ),
               ),
-              Icon(Icons.more_vert, color: Colors.white54)
+              Icon(Icons.more_vert, color: Colors.white54),
             ],
           ),
           Text(
-            info.title!,
+            info.title ?? "No Title",
             maxLines: 1,
             overflow: TextOverflow.ellipsis,
           ),
           ProgressLine(
             color: info.color,
-            percentage: info.percentage,
+            percentage: info.percentage ?? 0, // Default to 0% if null
           ),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Text(
-                "${info.numOfFiles} Files",
+                "${info.numOfFiles ?? 0} Files",
                 style: Theme.of(context)
                     .textTheme
                     .bodySmall!
                     .copyWith(color: Colors.white70),
               ),
               Text(
-                info.totalStorage!,
+                info.totalStorage ?? "No Storage Info",
                 style: Theme.of(context)
                     .textTheme
                     .bodySmall!
                     .copyWith(color: Colors.white),
               ),
             ],
-          )
+          ),
         ],
       ),
     );

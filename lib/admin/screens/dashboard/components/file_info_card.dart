@@ -55,13 +55,7 @@ class FileInfoCard extends StatelessWidget {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Text(
-                "${info.numOfFiles ?? 0} ",
-                style: Theme.of(context)
-                    .textTheme
-                    .bodySmall!
-                    .copyWith(color: Colors.white70),
-              ),
+           
               Text(
                 info.totalStorage ?? "No Storage Info",
                 style: Theme.of(context)

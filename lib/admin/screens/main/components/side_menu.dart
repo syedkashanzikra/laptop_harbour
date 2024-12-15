@@ -5,6 +5,7 @@ import 'package:lhstore/admin/screens/category/adminprofile/adminprofile.dart';
 import 'package:lhstore/admin/screens/category/viewcategory.dart';
 import 'package:lhstore/admin/screens/main/main_screen.dart';
 import 'package:lhstore/data/repositories_authentication/authentication_repository.dart';
+import 'package:lhstore/admin/screens/components/adminfeedbackscreen.dart';
 
 class SideMenu extends StatelessWidget {
   const SideMenu({
@@ -59,13 +60,20 @@ class SideMenu extends StatelessWidget {
             },
           ),
 
-              DrawerListTile(
-            title: "Logout",
-            svgSrc: "assets/icons/menu_profile.svg",
+             DrawerListTile(
+            title: "Feedback",
+            svgSrc: "assets/icons/category-svgrepo-com.svg",
             press: () {
-         AuthenticationRepository.instance.logout();
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => AdminViewFeedback(),
+                ),
+              );
             },
           ),
+
+            
           DrawerListTile(
             title: "Profile",
             svgSrc: "assets/icons/menu_profile.svg",
@@ -76,6 +84,14 @@ class SideMenu extends StatelessWidget {
                   builder: (context) => AdminProfileScreen(),
                 ),
               );
+            },
+          ),
+
+            DrawerListTile(
+            title: "Logout",
+            svgSrc: "assets/icons/menu_profile.svg",
+            press: () {
+         AuthenticationRepository.instance.logout();
             },
           ),
     

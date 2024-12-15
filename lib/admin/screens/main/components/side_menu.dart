@@ -3,6 +3,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:lhstore/admin/screens/admin_product/admin_product_page.dart';
 import 'package:lhstore/admin/screens/category/adminprofile/adminprofile.dart';
 import 'package:lhstore/admin/screens/category/viewcategory.dart';
+import 'package:lhstore/admin/screens/components/adminuserscreen.dart';
 import 'package:lhstore/admin/screens/main/main_screen.dart';
 import 'package:lhstore/data/repositories_authentication/authentication_repository.dart';
 import 'package:lhstore/admin/screens/components/adminfeedbackscreen.dart';
@@ -68,6 +69,18 @@ class SideMenu extends StatelessWidget {
                 context,
                 MaterialPageRoute(
                   builder: (context) => AdminViewFeedback(),
+                ),
+              );
+            },
+          ),
+             DrawerListTile(
+            title: "Users",
+          svgSrc: "assets/icons/menu_profile.svg",
+            press: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => AdminViewUsers(),
                 ),
               );
             },

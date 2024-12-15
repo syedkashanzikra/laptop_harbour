@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:lhstore/admin/responsive.dart';
 import 'package:lhstore/utils/helpers/customSnakbar.dart';
+// Import the Responsive widget
 
 class AdminViewFeedback extends StatefulWidget {
   @override
@@ -8,8 +10,8 @@ class AdminViewFeedback extends StatefulWidget {
 }
 
 class _AdminViewFeedbackState extends State<AdminViewFeedback> {
-  final CollectionReference feedbackCollection = FirebaseFirestore.instance
-      .collection('feedback'); // Firestore collection reference
+  final CollectionReference feedbackCollection =
+      FirebaseFirestore.instance.collection('feedback'); // Firestore reference
 
   @override
   Widget build(BuildContext context) {
@@ -18,83 +20,89 @@ class _AdminViewFeedbackState extends State<AdminViewFeedback> {
         title: Text("Admin View Feedback"),
       ),
       body: SafeArea(
-        child: Padding(
-          padding: const EdgeInsets.all(16.0),
-          child: StreamBuilder<QuerySnapshot>(
-            stream: feedbackCollection.snapshots(),
-            builder: (context, snapshot) {
-              if (snapshot.connectionState == ConnectionState.waiting) {
-                return Center(child: CircularProgressIndicator());
-              }
-
-              if (!snapshot.hasData || snapshot.data!.docs.isEmpty) {
-                return Center(child: Text("No feedback available."));
-              }
-
-              // Map Firestore data
-              final feedbackList = snapshot.data!.docs.map((doc) {
-                final data = doc.data() as Map<String, dynamic>;
-                return {
-                  'id': doc.id,
-                  'name': data['name'],
-                  'email': data['email'],
-                  'subject': data['subject'],
-                  'message': data['message'],
-                  'rating': data['rating'],
-                  'timestamp': data['timestamp'],
-                };
-              }).toList();
-
-              return SingleChildScrollView(
-                scrollDirection:
-                    Axis.horizontal, // Horizontal scrolling for responsiveness
-                child: DataTable(
-                  columns: [
-                    DataColumn(label: Text("Name")),
-                    DataColumn(label: Text("Email")),
-                    DataColumn(label: Text("Actions")),
-                  ],
-                  rows: feedbackList.map((feedback) {
-                    return DataRow(
-                      cells: [
-                        DataCell(Text(feedback['name'] ?? "")),
-                        DataCell(Text(feedback['email'] ?? "")),
-                        DataCell(
-                          PopupMenuButton<String>(
-                            onSelected: (value) {
-                              if (value == 'view') {
-                                _showFeedbackDetails(context, feedback);
-                              } else if (value == 'delete') {
-                                _deleteFeedback(context, feedback['id']);
-                              }
-                            },
-                            itemBuilder: (context) => [
-                              PopupMenuItem(
-                                value: 'view',
-                                child: Text("View"),
-                              ),
-                              PopupMenuItem(
-                                value: 'delete',
-                                child: Text("Delete"),
-                              ),
-                            ],
-                            child: Icon(Icons.more_vert), // Kebab menu icon
-                          ),
-                        ),
-                      ],
-                    );
-                  }).toList(),
-                ),
-              );
-            },
-          ),
+        child: Responsive(
+          mobile: _buildFeedbackTable(context, isDesktop: false),
+          tablet: _buildFeedbackTable(context, isDesktop: false),
+          desktop: _buildFeedbackTable(context, isDesktop: true),
         ),
       ),
     );
   }
 
-  void _showFeedbackDetails(
-      BuildContext context, Map<String, dynamic> feedback) {
+  Widget _buildFeedbackTable(BuildContext context, {required bool isDesktop}) {
+    return Padding(
+      padding: const EdgeInsets.all(16.0),
+      child: StreamBuilder<QuerySnapshot>(
+        stream: feedbackCollection.snapshots(),
+        builder: (context, snapshot) {
+          if (snapshot.connectionState == ConnectionState.waiting) {
+            return Center(child: CircularProgressIndicator());
+          }
+
+          if (!snapshot.hasData || snapshot.data!.docs.isEmpty) {
+            return Center(child: Text("No feedback available."));
+          }
+
+          // Map Firestore data
+          final feedbackList = snapshot.data!.docs.map((doc) {
+            final data = doc.data() as Map<String, dynamic>;
+            return {
+              'id': doc.id,
+              'name': data['name'],
+              'email': data['email'],
+              'subject': data['subject'],
+              'message': data['message'],
+              'rating': data['rating'],
+              'timestamp': data['timestamp'],
+            };
+          }).toList();
+
+          return SingleChildScrollView(
+            scrollDirection: isDesktop ? Axis.vertical : Axis.horizontal,
+            child: DataTable(
+              columns: [
+                DataColumn(label: Text("Name")),
+                DataColumn(label: Text("Email")),
+                DataColumn(label: Text("Actions")),
+              ],
+              rows: feedbackList.map((feedback) {
+                return DataRow(
+                  cells: [
+                    DataCell(Text(feedback['name'] ?? "")),
+                    DataCell(Text(feedback['email'] ?? "")),
+                    DataCell(
+                      PopupMenuButton<String>(
+                        onSelected: (value) {
+                          if (value == 'view') {
+                            _showFeedbackDetails(context, feedback);
+                          } else if (value == 'delete') {
+                            _deleteFeedback(context, feedback['id']);
+                          }
+                        },
+                        itemBuilder: (context) => [
+                          PopupMenuItem(
+                            value: 'view',
+                            child: Text("View"),
+                          ),
+                          PopupMenuItem(
+                            value: 'delete',
+                            child: Text("Delete"),
+                          ),
+                        ],
+                        child: Icon(Icons.more_vert), // Kebab menu icon
+                      ),
+                    ),
+                  ],
+                );
+              }).toList(),
+            ),
+          );
+        },
+      ),
+    );
+  }
+
+  void _showFeedbackDetails(BuildContext context, Map<String, dynamic> feedback) {
     showDialog(
       context: context,
       builder: (context) {

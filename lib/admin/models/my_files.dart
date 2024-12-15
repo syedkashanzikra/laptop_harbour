@@ -36,7 +36,7 @@ Stream<int> fetchRealtimeDatabaseCount(String nodeName) {
 // Function to populate the list dynamically in real-time
 Stream<List<CloudStorageInfo>> fetchDemoMyFilesStream() async* {
   final usersStream = fetchFirestoreCollectionCount('Users'); // Firestore
-  final feedbackStream = fetchFirestoreCollectionCount('Feedback'); // Firestore
+  final feedbackStream = fetchFirestoreCollectionCount('feedback'); // Firestore
   final productsStream = fetchRealtimeDatabaseCount('Products'); // Realtime DB
   final categoriesStream = fetchRealtimeDatabaseCount('Categories'); // Realtime DB
 

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:lhstore/admin/screens/admin_product/admin_product_page.dart';
+import 'package:lhstore/admin/screens/category/adminprofile/adminprofile.dart';
 import 'package:lhstore/admin/screens/category/viewcategory.dart';
 import 'package:lhstore/admin/screens/main/main_screen.dart';
 import 'package:lhstore/data/repositories_authentication/authentication_repository.dart';
@@ -32,11 +33,7 @@ class SideMenu extends StatelessWidget {
               );
             },
           ),
-          DrawerListTile(
-            title: "Transaction",
-            svgSrc: "assets/icons/menu_tran.svg",
-            press: () {},
-          ),
+
           DrawerListTile(
             title: "Category",
             svgSrc: "assets/icons/category-svgrepo-com.svg",
@@ -61,21 +58,7 @@ class SideMenu extends StatelessWidget {
               );
             },
           ),
-          DrawerListTile(
-            title: "Documents",
-            svgSrc: "assets/icons/menu_doc.svg",
-            press: () {},
-          ),
-          DrawerListTile(
-            title: "Store",
-            svgSrc: "assets/icons/menu_store.svg",
-            press: () {},
-          ),
-          DrawerListTile(
-            title: "Notification",
-            svgSrc: "assets/icons/menu_notification.svg",
-            press: () {},
-          ),
+
               DrawerListTile(
             title: "Logout",
             svgSrc: "assets/icons/menu_profile.svg",
@@ -86,17 +69,16 @@ class SideMenu extends StatelessWidget {
           DrawerListTile(
             title: "Profile",
             svgSrc: "assets/icons/menu_profile.svg",
-            press: () {},
-          ),
-          DrawerListTile(
-            title: "Settings",
-            svgSrc: "assets/icons/menu_setting.svg",
-            press: () {
-              if (ModalRoute.of(context)?.settings.name != '/settings') {
-                Navigator.pushNamed(context, '/settings');
-              }
+     press: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => AdminProfileScreen(),
+                ),
+              );
             },
           ),
+    
         ],
       ),
     );

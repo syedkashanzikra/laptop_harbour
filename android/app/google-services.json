@@ -1,27 +1,80 @@
 {
   "project_info": {
-    "project_number": "735991667055",
-    "firebase_url": "https://laptopharbour-b6416-default-rtdb.firebaseio.com",
-    "project_id": "laptopharbour-b6416",
-    "storage_bucket": "laptopharbour-b6416.firebasestorage.app"
+    "project_number": "1032895306683",
+    "firebase_url": "https://laptop-c11d3-default-rtdb.firebaseio.com",
+    "project_id": "laptop-c11d3",
+    "storage_bucket": "laptop-c11d3.firebasestorage.app"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:735991667055:android:1f9bb6d92f433f6235f09a",
+        "mobilesdk_app_id": "1:1032895306683:android:eb00a903201f908217c29e",
         "android_client_info": {
           "package_name": "com.example.lhstore"
         }
       },
-      "oauth_client": [],
+      "oauth_client": [
+        {
+          "client_id": "1032895306683-kp84ifq0o19m4p4lumd8dg61ph8ve31s.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
       "api_key": [
         {
-          "current_key": "AIzaSyDSPaY_z11sJS8cpMafOFMLYdCQFEpLZvc"
+          "current_key": "AIzaSyD-zztxk4AElSzJpfa6THT8Pl9rHkUyrdg"
         }
       ],
       "services": {
         "appinvite_service": {
-          "other_platform_oauth_client": []
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1032895306683-kp84ifq0o19m4p4lumd8dg61ph8ve31s.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "1032895306683-6f1dravtk1gikhdvebel7t4olijch478.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.myLaptopHarborProject"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1032895306683:android:3c088f05c25a696517c29e",
+        "android_client_info": {
+          "package_name": "com.example.my_laptop_harbor_project"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1032895306683-kp84ifq0o19m4p4lumd8dg61ph8ve31s.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD-zztxk4AElSzJpfa6THT8Pl9rHkUyrdg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1032895306683-kp84ifq0o19m4p4lumd8dg61ph8ve31s.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "1032895306683-6f1dravtk1gikhdvebel7t4olijch478.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.myLaptopHarborProject"
+              }
+            }
+          ]
         }
       }
     }

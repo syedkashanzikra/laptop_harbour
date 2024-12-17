@@ -41,54 +41,56 @@ class DefaultFirebaseOptions {
   }
 
   static const FirebaseOptions web = FirebaseOptions(
-    apiKey: 'AIzaSyA-eiAZln3YRxh3vUlUa673sUSdZxg6Tgg',
-    appId: '1:735991667055:web:6864eb3e81a0256235f09a',
-    messagingSenderId: '735991667055',
-    projectId: 'laptopharbour-b6416',
-    authDomain: 'laptopharbour-b6416.firebaseapp.com',
-    databaseURL: 'https://laptopharbour-b6416-default-rtdb.firebaseio.com',
-    storageBucket: 'laptopharbour-b6416.firebasestorage.app',
-    measurementId: 'G-CJBW0QJZZ4',
+    apiKey: 'AIzaSyC_CG6WSJLfmdXHLNsLkOJUfTDlkR2ZZDY',
+    appId: '1:1032895306683:web:40e2fff8d82a61d717c29e',
+    messagingSenderId: '1032895306683',
+    projectId: 'laptop-c11d3',
+    authDomain: 'laptop-c11d3.firebaseapp.com',
+    databaseURL: 'https://laptop-c11d3-default-rtdb.firebaseio.com',
+    storageBucket: 'laptop-c11d3.firebasestorage.app',
+    measurementId: 'G-45EHQNCL61',
   );
 
   static const FirebaseOptions android = FirebaseOptions(
-    apiKey: 'AIzaSyDSPaY_z11sJS8cpMafOFMLYdCQFEpLZvc',
-    appId: '1:735991667055:android:1f9bb6d92f433f6235f09a',
-    messagingSenderId: '735991667055',
-    projectId: 'laptopharbour-b6416',
-    databaseURL: 'https://laptopharbour-b6416-default-rtdb.firebaseio.com',
-    storageBucket: 'laptopharbour-b6416.firebasestorage.app',
+    apiKey: 'AIzaSyD-zztxk4AElSzJpfa6THT8Pl9rHkUyrdg',
+    appId: '1:1032895306683:android:eb00a903201f908217c29e',
+    messagingSenderId: '1032895306683',
+    projectId: 'laptop-c11d3',
+    databaseURL: 'https://laptop-c11d3-default-rtdb.firebaseio.com',
+    storageBucket: 'laptop-c11d3.firebasestorage.app',
   );
 
   static const FirebaseOptions ios = FirebaseOptions(
-    apiKey: 'AIzaSyAJ6JbwKNkYSHjXk0SDCVXc0F0yMcZ1dwQ',
-    appId: '1:735991667055:ios:d4ea96f173ebcf5735f09a',
-    messagingSenderId: '735991667055',
-    projectId: 'laptopharbour-b6416',
-    databaseURL: 'https://laptopharbour-b6416-default-rtdb.firebaseio.com',
-    storageBucket: 'laptopharbour-b6416.firebasestorage.app',
+    apiKey: 'AIzaSyDYWWOqWXNsON67q3aZiEacbqEUF0TozTs',
+    appId: '1:1032895306683:ios:613e90d079c6ae1517c29e',
+    messagingSenderId: '1032895306683',
+    projectId: 'laptop-c11d3',
+    databaseURL: 'https://laptop-c11d3-default-rtdb.firebaseio.com',
+    storageBucket: 'laptop-c11d3.firebasestorage.app',
+    iosClientId: '1032895306683-t60ssj9hdrclhmpp0pokv6infqhq3p3r.apps.googleusercontent.com',
     iosBundleId: 'com.example.lhstore',
   );
 
   static const FirebaseOptions macos = FirebaseOptions(
-    apiKey: 'AIzaSyAJ6JbwKNkYSHjXk0SDCVXc0F0yMcZ1dwQ',
-    appId: '1:735991667055:ios:d4ea96f173ebcf5735f09a',
-    messagingSenderId: '735991667055',
-    projectId: 'laptopharbour-b6416',
-    databaseURL: 'https://laptopharbour-b6416-default-rtdb.firebaseio.com',
-    storageBucket: 'laptopharbour-b6416.firebasestorage.app',
+    apiKey: 'AIzaSyDYWWOqWXNsON67q3aZiEacbqEUF0TozTs',
+    appId: '1:1032895306683:ios:613e90d079c6ae1517c29e',
+    messagingSenderId: '1032895306683',
+    projectId: 'laptop-c11d3',
+    databaseURL: 'https://laptop-c11d3-default-rtdb.firebaseio.com',
+    storageBucket: 'laptop-c11d3.firebasestorage.app',
+    iosClientId: '1032895306683-t60ssj9hdrclhmpp0pokv6infqhq3p3r.apps.googleusercontent.com',
     iosBundleId: 'com.example.lhstore',
   );
 
   static const FirebaseOptions windows = FirebaseOptions(
-    apiKey: 'AIzaSyA-eiAZln3YRxh3vUlUa673sUSdZxg6Tgg',
-    appId: '1:735991667055:web:683740fd65e7aed635f09a',
-    messagingSenderId: '735991667055',
-    projectId: 'laptopharbour-b6416',
-    authDomain: 'laptopharbour-b6416.firebaseapp.com',
-    databaseURL: 'https://laptopharbour-b6416-default-rtdb.firebaseio.com',
-    storageBucket: 'laptopharbour-b6416.firebasestorage.app',
-    measurementId: 'G-F6SCG3K8NL',
+    apiKey: 'AIzaSyC_CG6WSJLfmdXHLNsLkOJUfTDlkR2ZZDY',
+    appId: '1:1032895306683:web:40e2fff8d82a61d717c29e',
+    messagingSenderId: '1032895306683',
+    projectId: 'laptop-c11d3',
+    authDomain: 'laptop-c11d3.firebaseapp.com',
+    databaseURL: 'https://laptop-c11d3-default-rtdb.firebaseio.com',
+    storageBucket: 'laptop-c11d3.firebasestorage.app',
+    measurementId: 'G-45EHQNCL61',
   );
 
 }

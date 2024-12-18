@@ -6,7 +6,6 @@ import 'package:lhstore/features/shop/screens/search.dart';
 import 'package:lhstore/features/shop/screens/store/widget/Categories_store.dart';
 import 'package:lhstore/features/shop/screens/store/widget/outlinedButtonStore.dart';
 import 'package:lhstore/features/shop/screens/store/widget/store_appbar.dart';
-import 'package:lhstore/features/shop/screens/store/widget/store_brands.dart';
 import 'package:lhstore/utils/constants/colors.dart';
 import 'package:lhstore/utils/constants/sizes.dart';
 import 'package:lhstore/utils/helpers/helpers_fuctions.dart';
@@ -59,26 +58,16 @@ class StoreScreen extends StatelessWidget {
                     height: LHSize.spaceBtwSections,
                   ),
                   LHSectionHeading(
-                    title: 'Categories',
-                    showActionButton: true,
+                    title: 'Categories ',
+                    showActionButton: false,
                     textColor: dark ? LHColor.accent : LHColor.secondary,
                   ),
-                  SizedBox(
-                    height: LHSize.spaceBtwItems,
-                  ),
+                 
                   CategoriesStore(),
                   SizedBox(
                     height: LHSize.spaceBtwSections,
                   ),
-                  LHSectionHeading(
-                    title: 'Brands',
-                    showActionButton: false,
-                    textColor: dark ? LHColor.accent : LHColor.secondary,
-                  ),
-                  SizedBox(
-                    height: LHSize.spaceBtwItems,
-                  ),
-                  LHStoreBrands(),
+                 
                 ],
               ),
             ),

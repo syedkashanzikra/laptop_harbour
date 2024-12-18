@@ -2,22 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:lhstore/common/widgets/custom_shapes/containers/primary_header_container.dart';
 import 'package:lhstore/common/widgets/custom_shapes/containers/search_container.dart';
-import 'package:lhstore/common/widgets/products/product_Widgets/product_card_Widgets.dart';
-import 'package:lhstore/common/widgets/small_container/small_container.dart';
-import 'package:lhstore/common/widgets/text/section_header.dart';
-import 'package:lhstore/features/shop/screens/brands.dart';
-import 'package:lhstore/features/shop/screens/card/card.dart';
-import 'package:lhstore/features/shop/screens/card/featured_card.dart';
+
 import 'package:lhstore/features/shop/screens/home/widgets/home_appbar.dart';
-import 'package:lhstore/features/shop/screens/home/widgets/home_categories.dart';
 import 'package:lhstore/features/shop/screens/home/widgets/promo_slider.dart';
 import 'package:lhstore/features/shop/screens/search.dart';
-import 'package:lhstore/utils/constants/colors.dart';
 import 'package:lhstore/utils/constants/image_strings.dart';
 import 'package:lhstore/utils/constants/sizes.dart';
 import 'package:lhstore/utils/helpers/helpers_fuctions.dart';
-import 'package:page_transition/page_transition.dart';
-
+import 'package:lhstore/features/shop/screens/home/widgets/card_carousel.dart';
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
 
@@ -64,74 +56,18 @@ class HomeScreen extends StatelessWidget {
                 ),
               ],
             )),
-            Padding(
-                padding: EdgeInsets.all(LHSize.defaultSpace),
-                child: Column(
-                  children: [
-                    LHSectionHeading(
-                      title: 'Categories',
-                      showActionButton: false,
-                      textColor: dark ? LHColor.accent : LHColor.secondary,
-                    ),
-                    SizedBox(
-                      height: LHSize.spaceBtwItems,
-                    ),
-                    SmallContainersSection(),
-           
-                    SizedBox(
-                      height: LHSize.spaceBtwSections,
-                    ),
-                    LHSectionHeading(
-                      onPressed: () {
-                        Navigator.push(
-                            context,
-                            PageTransition(
-                                type: PageTransitionType.bottomToTop,
-                                child: LHBrands()));
-                      },
-                      title: 'Popular Brands',
-                      showActionButton: true,
-                      textColor: dark ? LHColor.accent : LHColor.secondary,
-                    ),
-                    SizedBox(
-                      height: LHSize.spaceBtwItems,
-                    ),
-                    LHHomeCategories(),
-                    SizedBox(
-                      height: LHSize.spaceBtwItems,
-                    ),
-                    LHSectionHeading(
-                      title: 'Popular Laptops',
-                      textColor: dark ? LHColor.accent : LHColor.secondary,
-                      showActionButton: true,
-                      onPressed: () {
-                        Get.to(Cardscreen());
-                      },
-                    ),
-                    SizedBox(
-                      height: LHSize.spaceBtwItems,
-                    ),
-                    SingleChildScrollView(
-                      scrollDirection: Axis.horizontal,
-                      child: ProductCardWidgets(),
-                    ),
-                      SizedBox(
-                      height: LHSize.spaceBtwItems,
-                    ),
-                    LHSectionHeading(
-                      title: 'Featured Laptops',
-                      textColor: dark ? LHColor.accent : LHColor.secondary,
-                      showActionButton: true,
-                      onPressed: () {
-                        Get.to(Cardscreen());
-                      },
-                    ),
-                    SizedBox(
-                      height: LHSize.spaceBtwItems,
-                    ),
-                    FeaturedCardscreen(),
-                  ],
-                )),
+         Padding(
+  padding: EdgeInsets.all(LHSize.defaultSpace),
+  child: Column(
+    children: [
+      Container(
+        height: 400, // Set a specific height for the CardCarousel
+        child: CardCarousel(),
+      ),
+    ],
+  ),
+),
+
           ],
         ),
       ),

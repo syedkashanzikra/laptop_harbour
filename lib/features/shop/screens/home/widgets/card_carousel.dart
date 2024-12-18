@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_database/firebase_database.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 
 class CardCarousel extends StatefulWidget {
   @override
@@ -96,7 +98,94 @@ class LaptopCard extends StatelessWidget {
     required this.specs,
   });
 
-  @override
+
+ void addToWishlist(BuildContext context) async {
+    // Initialize Firebase Auth and Firestore
+    final FirebaseAuth auth = FirebaseAuth.instance;
+    final FirebaseFirestore firestore = FirebaseFirestore.instance;
+    final DatabaseReference wishlistRef = FirebaseDatabase.instance.ref().child('Wishlist');
+
+    // Get the current logged-in user
+    User? currentUser = auth.currentUser;
+
+    if (currentUser == null) {
+      // Handle case where no user is logged in
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text('No user is logged in. Please log in to add to wishlist.'),
+          duration: const Duration(seconds: 3),
+          backgroundColor: Colors.red,
+        ),
+      );
+      return;
+    }
+
+    // User ID of the logged-in user
+    final String currentUserId = currentUser.uid;
+
+    String firstName = "Unknown";
+    String lastName = "User";
+
+    try {
+      // Fetch user details from Firestore
+      DocumentSnapshot userDoc =
+          await firestore.collection('Users').doc(currentUserId).get();
+
+      if (userDoc.exists) {
+        final userData = userDoc.data() as Map<String, dynamic>;
+        firstName = userData['FirstName'] ?? "Unknown";
+        lastName = userData['LastName'] ?? "User";
+      }
+    } catch (e) {
+      // Handle Firestore errors
+      print('Error fetching user details: $e');
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text('Failed to fetch user details. Please try again.'),
+          duration: const Duration(seconds: 3),
+          backgroundColor: Colors.red,
+        ),
+      );
+      return;
+    }
+
+    // Wishlist item data
+    final wishlistItem = {
+      'userName': "$firstName $lastName",
+      'productName': title,
+      'price': price,
+      'imageUrl': imageUrl,
+      'userId': currentUserId, // Associate the wishlist entry with the user
+      'timestamp': DateTime.now().toIso8601String(), // Optional for sorting
+    };
+
+    try {
+      // Add to Wishlist in Realtime Database
+      await wishlistRef.push().set(wishlistItem);
+
+      // Show success snackbar
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text('$title added to wishlist!'),
+          duration: const Duration(seconds: 2),
+          backgroundColor: Colors.green,
+        ),
+      );
+    } catch (e) {
+      // Show error snackbar
+      print('Error adding to wishlist: $e');
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text('Failed to add $title to wishlist.'),
+          duration: const Duration(seconds: 3),
+          backgroundColor: Colors.red,
+        ),
+      );
+    }
+  }
+
+
+ @override
   Widget build(BuildContext context) {
     return Card(
       elevation: 5.0,
@@ -175,7 +264,7 @@ class LaptopCard extends StatelessWidget {
                       // Add to Cart Button
                       ElevatedButton(
                         onPressed: () {
-                          // Add to cart action
+                          addToWishlist(context); // Add to wishlist logic
                         },
                         style: ElevatedButton.styleFrom(
                           backgroundColor:
